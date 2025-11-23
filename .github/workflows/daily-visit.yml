@@ -1,0 +1,20 @@
+name: Visita Diaria a josafra.xo.je
+
+on:
+  schedule:
+    # Ejecuta todos los días a las 9:00 AM UTC
+    - cron: '0 9 * * *'
+  workflow_dispatch: # Permite ejecución manual
+
+jobs:
+  visit-website:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Visitar página web
+      run: |
+        echo "🕐 Visitando https://josafra.xo.je/ - $(date)"
+        curl -s -o /dev/null -w "✅ Página visitada - Status: %{http_code}\n" \
+        -H "User-Agent: Mozilla/5.0 (compatible; GitHub-Actions-Visit/1.0)" \
+        https://josafra.xo.je/
+        echo "✅ Visita completada - $(date)"
